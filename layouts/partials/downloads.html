@@ -1,0 +1,39 @@
+{{/* Store buttons. A button is a real link when its URL is set in hugo.toml and
+     a disabled "coming soon" chip when it is not, so the page never ships a
+     download link that goes nowhere. Custom art on purpose: the official Play /
+     App Store badges are trademarked and are only licensed for live listings. */}}
+{{ $play := .Site.Params.playStoreURL }}
+{{ $ios := .Site.Params.appStoreURL }}
+{{ $apk := .Site.Params.apkURL }}
+
+<div class="stores">
+  {{ if $play }}
+    <a class="store" href="{{ $play }}">
+      {{ partial "icon-android.html" . }}
+      <span class="store-t">{{ i18n "getAndroid" }}</span>
+    </a>
+  {{ else }}
+    <span class="store store-soon" aria-disabled="true">
+      {{ partial "icon-android.html" . }}
+      <span class="store-t">{{ i18n "getAndroid" }}</span>
+      <span class="soon">{{ i18n "comingSoon" }}</span>
+    </span>
+  {{ end }}
+
+  {{ if $ios }}
+    <a class="store" href="{{ $ios }}">
+      {{ partial "icon-apple.html" . }}
+      <span class="store-t">{{ i18n "getIOS" }}</span>
+    </a>
+  {{ else }}
+    <span class="store store-soon" aria-disabled="true">
+      {{ partial "icon-apple.html" . }}
+      <span class="store-t">{{ i18n "getIOS" }}</span>
+      <span class="soon">{{ i18n "comingSoon" }}</span>
+    </span>
+  {{ end }}
+</div>
+
+{{ with $apk }}
+  <p class="apk"><a href="{{ . }}">{{ i18n "apk" }}</a></p>
+{{ end }}

@@ -1,0 +1,89 @@
+{{ define "main" }}
+
+{{/* ─────────── ABOVE THE WATERLINE: ice, light, the pitch ─────────── */}}
+<section class="surface">
+  <div class="wrap surface-in">
+    <div class="berg" aria-hidden="true">{{ partial "mark.html" . }}</div>
+
+    <p class="eyebrow">{{ .Params.hero.eyebrow }}</p>
+    <h1 class="display">{{ .Params.hero.title }}</h1>
+    <p class="lead">{{ .Params.hero.lead }}</p>
+
+    <div id="get" class="get">
+      {{ partial "downloads.html" . }}
+      <p class="note">{{ .Params.cta.body }}</p>
+    </div>
+  </div>
+</section>
+
+{{/* ─────────── THE WATERLINE ─────────── */}}
+<div class="waterline" role="separator" aria-label="{{ .Params.waterline }}">
+  <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,44 C160,14 300,72 480,58 C660,44 760,4 960,22 C1130,37 1290,74 1440,52 L1440,90 L0,90 Z"/>
+  </svg>
+  <span class="waterline-label">{{ .Params.waterline }}</span>
+</div>
+
+{{/* ─────────── BELOW: the mass. Yellow runs at the mark's own 42%. ─────────── */}}
+<section id="depth" class="deep">
+  <div class="wrap">
+
+    {{ range $i, $d := .Params.depths }}
+      <article class="depth rise" data-rail="{{ $d.rail }}">
+        <div class="rail" aria-hidden="true"></div>
+
+        <div class="depth-body">
+          <p class="eyebrow eyebrow-deep">{{ $d.eyebrow }}</p>
+          <h2>{{ $d.title }}</h2>
+          <p>{{ $d.body }}</p>
+          <ul class="tags">
+            {{ range $d.tags }}<li>{{ . }}</li>{{ end }}
+          </ul>
+        </div>
+
+        {{/* The session card only belongs to the first depth: it is what logging
+             actually looks like. Rendered in markup, not a screenshot, so it stays
+             correct in both languages and both text directions. */}}
+        {{ if eq $d.rail 1 }}
+          {{ $s := $.Params.session }}
+          <div class="card" aria-hidden="true">
+            <div class="card-top">
+              <span class="card-caption">{{ $s.caption }}</span>
+              <span class="card-timer"><b>{{ $s.timer }}</b><small>{{ $s.timerLabel }}</small></span>
+            </div>
+            <div class="card-ex">
+              <h3>{{ $s.exercise }}</h3>
+              <span>{{ $s.meta }}</span>
+            </div>
+            {{ range $s.rows }}
+              <div class="set{{ if .done }} set-done{{ end }}">
+                <span class="box">{{ if .done }}<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ end }}</span>
+                <span class="set-n">{{ .set }}</span>
+                <span class="set-d">{{ .detail }}</span>
+              </div>
+            {{ end }}
+          </div>
+        {{ end }}
+      </article>
+    {{ end }}
+
+    {{/* ─────────── COACH ─────────── */}}
+    <article id="coach" class="coach rise">
+      <p class="eyebrow eyebrow-deep">{{ .Params.coach.eyebrow }}</p>
+      <h2 class="display display-sm">{{ .Params.coach.title }}</h2>
+      <p class="coach-lead">{{ .Params.coach.body }}</p>
+      <ul class="points">
+        {{ range .Params.coach.points }}<li>{{ . }}</li>{{ end }}
+      </ul>
+    </article>
+
+    {{/* ─────────── FINAL CTA ─────────── */}}
+    <article class="end rise">
+      <h2 class="display display-sm">{{ .Params.cta.title }}</h2>
+      {{ partial "downloads.html" . }}
+    </article>
+
+  </div>
+</section>
+
+{{ end }}

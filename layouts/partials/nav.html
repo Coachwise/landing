@@ -1,0 +1,20 @@
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="{{ "" | relLangURL }}" aria-label="{{ .Site.Title }}">
+      {{ partial "mark.html" . }}
+      <span class="brand-name">{{ .Site.Title }}</span>
+    </a>
+
+    <nav class="nav-links" aria-label="{{ i18n "navLabel" }}">
+      {{ range .Params.nav }}
+        <a href="{{ .href }}">{{ .label }}</a>
+      {{ end }}
+    </nav>
+
+    <div class="lang">
+      {{ range .Translations }}
+        <a href="{{ .Permalink }}" lang="{{ .Site.Language.Lang }}" hreflang="{{ .Site.Language.Lang }}">{{ .Site.Language.LanguageName }}</a>
+      {{ end }}
+    </div>
+  </div>
+</header>

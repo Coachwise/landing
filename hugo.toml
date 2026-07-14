@@ -1,0 +1,40 @@
+baseURL = "https://coachwise.app/"
+title = "Coachwise"
+
+# Persian is the product's default language, so it is the default here too and
+# lives at the site root. English is served from /en/.
+defaultContentLanguage = "fa"
+defaultContentLanguageInSubdir = false
+
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term", "rss"]
+
+[languages]
+  [languages.fa]
+    languageCode = "fa-IR"
+    languageName = "فارسی"
+    languageDirection = "rtl"
+    weight = 1
+    title = "کوچ‌وایز"
+  [languages.en]
+    languageCode = "en-US"
+    languageName = "English"
+    languageDirection = "ltr"
+    weight = 2
+    title = "Coachwise"
+
+[params]
+  # Store listings do not exist yet. Leave these empty and the download buttons
+  # render as "coming soon" (disabled); fill one in and that button goes live.
+  # Swap in the official Play/App Store badge art at the same time — those badges
+  # are trademarked and may only be used once the listing is real.
+  playStoreURL = ""
+  appStoreURL = ""
+  # A direct APK (app/ CI already builds one) can be offered before the listing.
+  apkURL = ""
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[minify]
+  disableXML = true

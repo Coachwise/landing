@@ -1,0 +1,19 @@
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      {{ partial "mark.html" . }}
+      <div>
+        <span class="brand-name">{{ .Site.Title }}</span>
+        <p>{{ .Params.footer.tagline }}</p>
+      </div>
+    </div>
+
+    <div class="foot-meta">
+      <span class="beta">{{ .Params.footer.beta }}</span>
+      <span class="copy">© {{ now.Year }} {{ .Site.Title }}</span>
+      {{ range .Translations }}
+        <a href="{{ .Permalink }}" lang="{{ .Site.Language.Lang }}">{{ .Site.Language.LanguageName }}</a>
+      {{ end }}
+    </div>
+  </div>
+</footer>
