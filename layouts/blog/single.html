@@ -1,0 +1,30 @@
+{{ define "main" }}
+<article class="surface page">
+  <div class="wrap page-in">
+    <a class="back" href="{{ "blog/" | relLangURL }}">{{ i18n "allPosts" }}</a>
+
+    <p class="eyebrow"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ partial "date.html" . }}</time></p>
+    <h1 class="display display-sm">{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="lead">{{ . }}</p>{{ end }}
+
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+
+{{/* Every post ends where the site wants the reader to go: the app. */}}
+<div class="ridgeline" role="separator" aria-hidden="true">
+  <svg class="ridge" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,82 L300,52 L560,16 L700,46 L840,24 L1120,62 L1440,38 L1440,90 L0,90 Z"/>
+  </svg>
+</div>
+<section class="deep">
+  <div class="wrap">
+    <article class="end">
+      <h2 class="display display-sm">{{ .Site.Home.Params.cta.title }}</h2>
+      {{ partial "downloads.html" . }}
+    </article>
+  </div>
+</section>
+{{ end }}

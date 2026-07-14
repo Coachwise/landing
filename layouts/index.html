@@ -1,9 +1,9 @@
 {{ define "main" }}
 
-{{/* ─────────── ABOVE THE WATERLINE: ice, light, the pitch ─────────── */}}
+{{/* ─────────── ABOVE THE RIDGELINE: summit light, and the pitch ─────────── */}}
 <section class="surface">
   <div class="wrap surface-in">
-    <div class="berg" aria-hidden="true">{{ partial "mark.html" . }}</div>
+    <div class="hero-mark" aria-hidden="true">{{ partial "mark.html" . }}</div>
 
     <p class="eyebrow">{{ .Params.hero.eyebrow }}</p>
     <h1 class="display">{{ .Params.hero.title }}</h1>
@@ -16,15 +16,15 @@
   </div>
 </section>
 
-{{/* ─────────── THE WATERLINE ─────────── */}}
-<div class="waterline" role="separator" aria-label="{{ .Params.waterline }}">
-  <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,44 C160,14 300,72 480,58 C660,44 760,4 960,22 C1130,37 1290,74 1440,52 L1440,90 L0,90 Z"/>
+{{/* ─────────── THE RIDGELINE ─────────── */}}
+<div class="ridgeline" role="separator" aria-label="{{ .Params.ridgeline }}">
+  <svg class="ridge" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,82 L300,52 L560,16 L700,46 L840,24 L1120,62 L1440,38 L1440,90 L0,90 Z"/>
   </svg>
-  <span class="waterline-label">{{ .Params.waterline }}</span>
+  <span class="ridgeline-label">{{ .Params.ridgeline }}</span>
 </div>
 
-{{/* ─────────── BELOW: the mass. Yellow runs at the mark's own 42%. ─────────── */}}
+{{/* ─────────── BELOW THE RIDGE: the work the summit is made of ─────────── */}}
 <section id="depth" class="deep">
   <div class="wrap">
 
@@ -76,6 +76,37 @@
         {{ range .Params.coach.points }}<li>{{ . }}</li>{{ end }}
       </ul>
     </article>
+
+    {{/* ─────────── FAQ (also the source of the FAQPage schema) ─────────── */}}
+    {{ with .Params.faq }}
+      <article id="faq" class="faq rise">
+        <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
+        <h2 class="display display-sm">{{ .title }}</h2>
+        <div class="qa">
+          {{ range .items }}
+            <details>
+              <summary>{{ .q }}</summary>
+              <p>{{ .a }}</p>
+            </details>
+          {{ end }}
+        </div>
+      </article>
+    {{ end }}
+
+    {{/* ─────────── LATEST POST ─────────── */}}
+    {{ $posts := where .Site.RegularPages "Section" "blog" }}
+    {{ with $posts.ByDate.Reverse }}
+      {{ $latest := index . 0 }}
+      <article class="teaser rise">
+        <p class="eyebrow eyebrow-deep">{{ $.Params.blog.eyebrow }}</p>
+        <a class="teaser-card" href="{{ $latest.RelPermalink }}">
+          <time datetime="{{ $latest.Date.Format "2006-01-02" }}">{{ partial "date.html" $latest }}</time>
+          <h2>{{ $latest.Title }}</h2>
+          <p>{{ $latest.Params.description }}</p>
+        </a>
+        <a class="more" href="{{ "blog/" | relLangURL }}">{{ $.Params.blog.link }}</a>
+      </article>
+    {{ end }}
 
     {{/* ─────────── FINAL CTA ─────────── */}}
     <article class="end rise">

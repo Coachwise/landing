@@ -1,0 +1,3 @@
+{{/* Localised long date. Persian gets Persian month names (Gregorian calendar —
+     Hugo has no Jalali; the app itself shows Jalali where it matters). */}}
+{{- .Date | time.Format ":date_long" -}}

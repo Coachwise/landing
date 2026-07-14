@@ -3,30 +3,31 @@ title: "Coachwise"
 description: "Coachwise is one app for strength training and climbing. Your coach writes the plan, every set gets logged, and the progress stays in one place."
 
 nav:
-  - { label: "Below the surface", href: "#depth" }
+  - { label: "The climb", href: "#depth" }
   - { label: "For coaches", href: "#coach" }
-  - { label: "Get the app", href: "#get" }
+  - { label: "FAQ", href: "#faq" }
+  - { label: "Blog", href: "/en/blog/" }
 
 hero:
   eyebrow: "Strength training and climbing, in one app"
-  title: "Every session is the tip."
-  lead: "What people see is an hour in the gym. What actually moves you sits below the surface: the plan your coach wrote, every set you logged, and the months that only mean something together. Coachwise is the part below the surface."
+  title: "They see the summit. You make the climb."
+  lead: "What people see is an hour in the gym. What actually lifts you is underneath it: the plan your coach wrote, every set you logged, and the months that only mean something together. Coachwise is the climb."
 
-waterline: "Waterline"
+ridgeline: "Ridgeline"
 
 depths:
   - rail: 1
-    eyebrow: "Surface"
+    eyebrow: "Base"
     title: "Log the session"
     body: "Sets, reps, weight and RPE for the barbell. Grade, send type and hangboard for the wall. One session in one app — not three apps and a spreadsheet."
     tags: ["Sets and reps", "Climbing grades", "Hangboard", "Session timer"]
   - rail: 2
-    eyebrow: "Midwater"
+    eyebrow: "Route"
     title: "Follow the plan"
     body: "Your coach writes the week and it lands on your phone. Today's session opens ready to go, and the moment you finish it, your coach sees it."
     tags: ["Weekly plan", "Persian calendar", "Coach feedback"]
   - rail: 3
-    eyebrow: "Depth"
+    eyebrow: "Summit"
     title: "Find your coach"
     body: "Pick a coach, take their package, and show them the work. Records and badges live on your profile — the ones you chose to show, in the order you chose."
     tags: ["Coach packages", "Records", "Assessments", "Wallet"]
@@ -51,6 +52,28 @@ coach:
     - "Build and sell packages — monthly or one-off"
     - "Clients, finished sessions and assessments in one dashboard"
     - "Wallet and payouts"
+
+faq:
+  eyebrow: "Common questions"
+  title: "Ask these before you install."
+  items:
+    - q: "What does Coachwise actually do?"
+      a: "Coachwise is an app for strength training and climbing. You log your session (sets, reps, weight and RPE; grade, send type and hangboard for climbing), your coach writes your weekly plan, and the progress stays in one place — not spread across three apps and a spreadsheet."
+    - q: "Do I need a coach to use it?"
+      a: "No. You can train alone and just log your sessions. Whenever you want one, you pick a coach and take their package."
+    - q: "Is the app in Persian?"
+      a: "Yes. Coachwise is Persian and right-to-left from the ground up, not a translation bolted onto an English app, and it uses the Persian calendar. English is fully supported too."
+    - q: "Is it on Android and iPhone?"
+      a: "It's built for both, but it isn't on Google Play or the App Store yet. Until it is, the download buttons on this page stay disabled — they go live the moment the listings do."
+    - q: "How does a coach get paid?"
+      a: "A coach builds a package and sells it. What the athlete pays lands in the coach's wallet, and the coach cashes out when they want to."
+    - q: "Is it free?"
+      a: "Logging your training and following a plan are free. The thing you pay for is a coach's package, and the coach sets that price."
+
+blog:
+  eyebrow: "Blog"
+  title: "Latest post"
+  link: "All posts"
 
 cta:
   title: "Start with today's session."

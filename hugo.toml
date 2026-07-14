@@ -7,7 +7,12 @@ defaultContentLanguage = "fa"
 defaultContentLanguageInSubdir = false
 
 enableRobotsTXT = true
-disableKinds = ["taxonomy", "term", "rss"]
+# RSS stays on: the blog is a feed people can actually subscribe to.
+disableKinds = ["taxonomy", "term"]
+
+# Blog posts are dated; the home page is not.
+[permalinks]
+  blog = "/blog/:slug/"
 
 [languages]
   [languages.fa]
@@ -24,6 +29,8 @@ disableKinds = ["taxonomy", "term", "rss"]
     title = "Coachwise"
 
 [params]
+  # Used by the JSON-LD publisher block and the social card.
+  ogImage = "img/og.png"
   # Store listings do not exist yet. Leave these empty and the download buttons
   # render as "coming soon" (disabled); fill one in and that button goes live.
   # Swap in the official Play/App Store badge art at the same time — those badges

@@ -1,8 +1,8 @@
-/* Coachwise landing — the page is the mark in section.
-   Above the waterline: cold ice light, navy ink, the summit at full strength.
-   Below it: deep water, pale ice text, and yellow held at 0.42 — the same rule
-   the mark itself is built on. Every rule below uses logical properties so the
-   one stylesheet serves Persian (RTL) and English (LTR) without a mirror sheet. */
+/* Coachwise landing — the page is the climb.
+   Above the ridgeline: cold summit light, navy ink, the climber in brand yellow.
+   Below it: the dark mass of the mountain, where the actual work happens. Every
+   rule uses CSS logical properties, so one stylesheet serves Persian (RTL) and
+   English (LTR) without a mirrored copy. */
 
 /* ── Fonts (self-hosted: Google Fonts is not a dependency to hand Iranian users) */
 @font-face {
@@ -27,13 +27,13 @@
 }
 
 :root {
-  /* Ice above, water below. Four values carry the whole page. */
-  --ice: #eef2f7;          /* the light above the surface  */
-  --frost: #d3dce7;        /* hairlines, muted ice         */
-  --navy: #0e0e55;         /* brand navy — ink above water */
-  --deep: #070734;         /* deep water — the field below */
-  --summit: #f5b70a;       /* the mark's yellow, undimmed  */
-  --pale: #b9c6da;         /* readable ice on deep water   */
+  /* Light above the ridge, mountain below it. Four values carry the whole page. */
+  --ice: #eef2f7;          /* summit light                   */
+  --frost: #d3dce7;        /* hairlines                      */
+  --navy: #0e0e55;         /* brand navy — ink in the light  */
+  --deep: #070734;         /* the mountain — the field below */
+  --summit: #f5b70a;       /* the climber's yellow           */
+  --pale: #b9c6da;         /* readable text on the dark half */
 
   --display: "Lalezar", "Vazirmatn", system-ui, sans-serif;
   --body: "Vazirmatn", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -55,6 +55,18 @@ body {
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
   line-height: 1.75;
   text-rendering: optimizeLegibility;
+
+  /* Hold the footer at the bottom on pages too short to fill the screen — an
+     empty blog index would otherwise leave it stranded mid-page. */
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  min-block-size: 100svh;
+}
+
+/* Main takes whatever height is left over, pushing the footer down. */
+#main {
+  flex: 1 0 auto;
 }
 
 h1, h2, h3 { margin: 0; line-height: 1.25; font-weight: 600; }
@@ -77,10 +89,8 @@ a { color: inherit; }
   border-radius: 0.35rem;
 }
 
-/* ── The mark. One colour; the mass is the same colour, dimmed. ─────────── */
+/* ── The mark. One colour, taken from the surrounding ink. ───────────────── */
 .mark { inline-size: 100%; block-size: 100%; display: block; }
-.mark-summit { fill: var(--summit); }
-.mark-mass { fill: var(--summit); opacity: 0.42; }
 
 /* ── Nav ────────────────────────────────────────────────────────────────── */
 .nav {
@@ -116,18 +126,20 @@ a { color: inherit; }
   .lang { margin-inline-start: auto; border-inline-start: 0; padding-inline-start: 0; }
 }
 
-/* ── Above the waterline ─────────────────────────────────────────────────── */
+/* ── Above the ridgeline: the lit summit ─────────────────────────────────── */
 .surface { padding-block: clamp(3.5rem, 8vw, 6rem) clamp(4rem, 9vw, 7rem); }
 .surface-in { max-inline-size: 46rem; }
 
-.berg {
-  inline-size: clamp(5rem, 12vw, 7.5rem);
-  block-size: clamp(5rem, 12vw, 7.5rem);
+.hero-mark {
+  inline-size: clamp(5.5rem, 13vw, 8rem);
+  block-size: clamp(5.5rem, 13vw, 8rem);
   margin-block-end: 1.75rem;
+  color: var(--navy);
   filter: drop-shadow(0 12px 24px rgb(14 14 85 / 0.14));
-  animation: surfacing 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: ascend 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-@keyframes surfacing {
+/* The mark arrives the way the page reads: from below, coming up. */
+@keyframes ascend {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: none; }
 }
@@ -145,10 +157,13 @@ a { color: inherit; }
 .display {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(2.6rem, 1.4rem + 5vw, 4.6rem);
+  font-size: clamp(2.4rem, 1.4rem + 4.4vw, 4.2rem);
   line-height: 1.08;
   letter-spacing: -0.01em;
   margin-block-end: 1.5rem;
+  /* Keep the last line from stranding a single word — the Persian headline
+     breaks after "صعود با" otherwise. */
+  text-wrap: balance;
 }
 :lang(fa) .display { line-height: 1.35; letter-spacing: 0; }
 .display-sm { font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem); }
@@ -200,7 +215,7 @@ a { color: inherit; }
 }
 .apk { margin-block-start: 0.9rem; font-size: 0.9rem; }
 
-/* Below the waterline the buttons invert: ice on water. */
+/* Below the ridge the buttons invert: yellow on the dark mountain. */
 .deep .store { background: var(--summit); color: var(--deep); border-color: var(--summit); font-weight: 600; }
 .deep .store:hover { background: #ffc61f; }
 .deep .store-soon {
@@ -211,11 +226,11 @@ a { color: inherit; }
 .deep .soon { background: color-mix(in srgb, var(--summit) 42%, transparent); color: var(--deep); }
 .deep .apk a { color: var(--pale); }
 
-/* ── The waterline ───────────────────────────────────────────────────────── */
-.waterline { position: relative; line-height: 0; }
-.wave { display: block; inline-size: 100%; block-size: clamp(3rem, 6vw, 5.5rem); }
-.wave path { fill: var(--deep); }
-.waterline-label {
+/* ── The ridgeline: where the lit summit gives way to the mountain ───────── */
+.ridgeline { position: relative; line-height: 0; }
+.ridge { display: block; inline-size: 100%; block-size: clamp(3rem, 6vw, 5.5rem); }
+.ridge path { fill: var(--deep); }
+.ridgeline-label {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 50%;
@@ -228,10 +243,10 @@ a { color: inherit; }
   color: color-mix(in srgb, var(--navy) 40%, transparent);
   white-space: nowrap;
 }
-:lang(fa) .waterline-label { letter-spacing: 0.06em; text-transform: none; }
+:lang(fa) .ridgeline-label { letter-spacing: 0.06em; text-transform: none; }
 /* The hairline the label sits on, drawn out from the centre on load. */
-.waterline-label::before,
-.waterline-label::after {
+.ridgeline-label::before,
+.ridgeline-label::after {
   content: "";
   position: absolute;
   inset-block-start: 50%;
@@ -240,11 +255,11 @@ a { color: inherit; }
   background: var(--frost);
   animation: draw 0.9s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.waterline-label::before { inset-inline-end: calc(100% + 0.9rem); transform-origin: right; }
-.waterline-label::after { inset-inline-start: calc(100% + 0.9rem); transform-origin: left; }
+.ridgeline-label::before { inset-inline-end: calc(100% + 0.9rem); transform-origin: right; }
+.ridgeline-label::after { inset-inline-start: calc(100% + 0.9rem); transform-origin: left; }
 @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-/* ── Below the waterline: the mass ───────────────────────────────────────── */
+/* ── Below the ridge: the work the summit is made of ─────────────────────── */
 .deep {
   background: var(--deep);
   color: var(--pale);
@@ -266,9 +281,9 @@ a { color: inherit; }
 .depth-body { max-inline-size: 40rem; }
 .depth p { color: var(--pale); }
 
-/* The gauge is not decoration: it reads how deep in the product you are. Logging
-   sits at the surface, plans midwater, coaching and money at depth — so the line
-   fills further on each section down the page. Yellow at the mark's own 0.42. */
+/* The gauge is not decoration: it reads how far up the product you have come.
+   Logging is the base, plans are the route, coaching and money are the summit —
+   so the line fills further on each section down the page. */
 .rail {
   position: relative;
   inline-size: 2px;
@@ -348,14 +363,14 @@ a { color: inherit; }
   padding-block-end: 0.75rem;
   border-block-end: 1px solid color-mix(in srgb, var(--pale) 10%, transparent);
 }
+/* A chevron, echoing the ridge in the mark. */
 .points li::before {
   content: "";
   flex: none;
   inline-size: 0.5rem; block-size: 0.5rem;
   margin-block-start: 0.6rem;
-  border-radius: 2px;
   background: var(--summit);
-  opacity: 0.42; /* the mark's rule: yellow is dimmed below the water */
+  clip-path: polygon(50% 0, 100% 100%, 50% 72%, 0 100%);
 }
 
 .end { padding-block: clamp(3.5rem, 7vw, 5rem); text-align: center; }
@@ -371,7 +386,8 @@ a { color: inherit; }
 }
 .foot-in { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between; }
 .foot-brand { display: flex; align-items: center; gap: 0.75rem; }
-.foot-brand .mark { inline-size: 2.1rem; block-size: 2.1rem; }
+/* On the dark half the ridge has to lift to ice, or it disappears into the page. */
+.foot-brand .mark { inline-size: 2.1rem; block-size: 2.1rem; color: var(--ice); }
 .foot-brand .brand-name { color: var(--ice); }
 .foot-brand p { margin-block-start: 0.15rem; font-size: 0.85rem; }
 .foot-meta { display: flex; align-items: center; gap: 1rem; }
@@ -403,3 +419,104 @@ a { color: inherit; }
   .card { grid-column: 1; }
   .foot-in { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── FAQ ─────────────────────────────────────────────────────────────────── */
+.faq { padding-block: clamp(3rem, 6vw, 4.5rem); border-block-end: 1px solid color-mix(in srgb, var(--pale) 14%, transparent); }
+.qa { margin-block-start: 1.5rem; max-inline-size: 44rem; }
+.qa details {
+  border-block-end: 1px solid color-mix(in srgb, var(--pale) 12%, transparent);
+  padding-block: 1rem;
+}
+.qa summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ice);
+  font-weight: 500;
+}
+.qa summary::-webkit-details-marker { display: none; }
+/* A chevron that points up once the answer is open — the ridge language again. */
+.qa summary::before {
+  content: "";
+  flex: none;
+  inline-size: 0.55rem; block-size: 0.55rem;
+  background: var(--summit);
+  clip-path: polygon(50% 100%, 100% 0, 50% 28%, 0 0);
+  transition: transform 0.2s ease;
+}
+.qa details[open] summary::before { transform: rotate(180deg); }
+.qa details p { margin-block-start: 0.75rem; padding-inline-start: 1.3rem; color: var(--pale); max-inline-size: 40rem; }
+
+/* ── Latest-post teaser ──────────────────────────────────────────────────── */
+.teaser { padding-block: clamp(3rem, 6vw, 4.5rem); border-block-end: 1px solid color-mix(in srgb, var(--pale) 14%, transparent); }
+.teaser-card {
+  display: block;
+  max-inline-size: 40rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--navy) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pale) 14%, transparent);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.teaser-card:hover { border-color: color-mix(in srgb, var(--summit) 45%, transparent); transform: translateY(-2px); }
+.teaser-card time, .post-card time { font-size: 0.8rem; color: color-mix(in srgb, var(--pale) 65%, transparent); }
+.teaser-card h2 { margin-block: 0.4rem 0.5rem; color: var(--ice); font-size: 1.25rem; }
+.teaser-card p { color: var(--pale); }
+.teaser .more, .post-card .more { display: inline-block; margin-block-start: 1rem; color: var(--summit); font-size: 0.9rem; text-decoration: none; }
+.teaser .more:hover { text-decoration: underline; }
+
+/* ── Blog pages (list + post). These live above the ridge: light, readable. ── */
+.page { padding-block: clamp(2.5rem, 6vw, 4rem) clamp(3rem, 7vw, 5rem); }
+.page-in { max-inline-size: 44rem; }
+.back {
+  display: inline-block;
+  margin-block-end: 1.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--navy) 60%, transparent);
+}
+.back:hover { color: var(--navy); }
+
+.posts { margin-block-start: 2.5rem; display: grid; gap: 1rem; }
+.post-card {
+  display: block;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid var(--frost);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.post-card:hover { border-color: var(--navy); transform: translateY(-2px); }
+.post-card time { color: color-mix(in srgb, var(--navy) 55%, transparent); }
+.post-card h2 { margin-block: 0.4rem 0.5rem; font-size: 1.35rem; color: var(--navy); }
+.post-card p { color: color-mix(in srgb, var(--navy) 75%, transparent); }
+.post-card .more { color: color-mix(in srgb, var(--navy) 90%, transparent); }
+
+/* ── Post body ───────────────────────────────────────────────────────────── */
+.prose { margin-block-start: 2.5rem; }
+.prose h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 1.9rem);
+  margin-block: 2.5rem 1rem;
+}
+.prose p { margin-block-end: 1.25rem; }
+.prose ul { display: grid; gap: 0.75rem; margin-block-end: 1.5rem; }
+/* The marker is positioned, not a flex item: flex would promote the leading
+   <strong> to its own column and break the sentence in half. */
+.prose ul li { position: relative; padding-inline-start: 1.3rem; }
+.prose ul li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.65rem;
+  inline-size: 0.5rem; block-size: 0.5rem;
+  background: var(--summit);
+  clip-path: polygon(50% 0, 100% 100%, 50% 72%, 0 100%);
+}
+.prose strong { font-weight: 600; }
+.prose a { color: var(--navy); text-underline-offset: 3px; }

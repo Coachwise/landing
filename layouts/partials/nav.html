@@ -1,13 +1,23 @@
+{{/* The nav is defined once, on the home page. Every other page (blog list, a
+     post) borrows it — so an in-page anchor like "#faq" has to be resolved
+     against the home page, or it would point at a section this page hasn't got. */}}
+{{ $home := .Site.Home }}
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="{{ "" | relLangURL }}" aria-label="{{ .Site.Title }}">
+    <a class="brand" href="{{ $home.RelPermalink }}" aria-label="{{ .Site.Title }}">
       {{ partial "mark.html" . }}
       <span class="brand-name">{{ .Site.Title }}</span>
     </a>
 
     <nav class="nav-links" aria-label="{{ i18n "navLabel" }}">
-      {{ range .Params.nav }}
-        <a href="{{ .href }}">{{ .label }}</a>
+      {{ range $home.Params.nav }}
+        {{ $href := .href }}
+        {{ if hasPrefix $href "#" }}
+          {{ $href = printf "%s%s" $home.RelPermalink $href }}
+        {{ else }}
+          {{ $href = $href | relLangURL }}
+        {{ end }}
+        <a href="{{ $href }}">{{ .label }}</a>
       {{ end }}
     </nav>
 

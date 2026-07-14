@@ -1,0 +1,59 @@
+{{/* Structured data. Three shapes, each only where it is true:
+     - the home page is a mobile app (SoftwareApplication) published by an org,
+     - its FAQ block is a real FAQPage,
+     - a blog post is a BlogPosting.
+     No ratings, no prices, no invented counts — fabricated markup is what gets a
+     site penalised, and none of those numbers exist yet. */}}
+
+{{ $org := dict
+  "@type" "Organization"
+  "name" .Site.Title
+  "url" .Site.Home.Permalink
+  "logo" (absURL "img/icon.svg")
+}}
+
+{{ if .IsHome }}
+  {{ $app := dict
+    "@context" "https://schema.org"
+    "@type" "SoftwareApplication"
+    "name" .Site.Title
+    "applicationCategory" "HealthApplication"
+    "operatingSystem" "Android, iOS"
+    "description" .Params.description
+    "url" .Permalink
+    "image" (absURL (.Site.Params.ogImage))
+    "inLanguage" .Site.Language.Lang
+    "publisher" $org
+  }}
+  <script type="application/ld+json">{{ $app | jsonify | safeJS }}</script>
+
+  {{ with .Params.faq }}
+    {{ $items := slice }}
+    {{ range .items }}
+      {{ $items = $items | append (dict
+        "@type" "Question"
+        "name" .q
+        "acceptedAnswer" (dict "@type" "Answer" "text" .a)
+      ) }}
+    {{ end }}
+    {{ $faq := dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $items }}
+    <script type="application/ld+json">{{ $faq | jsonify | safeJS }}</script>
+  {{ end }}
+{{ end }}
+
+{{ if and (eq .Section "blog") (not .IsSection) }}
+  {{ $post := dict
+    "@context" "https://schema.org"
+    "@type" "BlogPosting"
+    "headline" .Title
+    "description" .Params.description
+    "datePublished" (.Date.Format "2006-01-02")
+    "dateModified" (.Lastmod.Format "2006-01-02")
+    "inLanguage" .Site.Language.Lang
+    "mainEntityOfPage" .Permalink
+    "image" (absURL (.Site.Params.ogImage))
+    "author" $org
+    "publisher" $org
+  }}
+  <script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+{{ end }}

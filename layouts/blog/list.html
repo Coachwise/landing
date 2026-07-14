@@ -1,0 +1,27 @@
+{{ define "main" }}
+<section class="surface page">
+  <div class="wrap page-in">
+    <p class="eyebrow">{{ .Params.eyebrow | default .Site.Title }}</p>
+    <h1 class="display display-sm">{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="lead">{{ . }}</p>{{ end }}
+
+    {{ $posts := where .Site.RegularPages "Section" "blog" }}
+    {{ if $posts }}
+      <ul class="posts">
+        {{ range $posts.ByDate.Reverse }}
+          <li>
+            <a class="post-card" href="{{ .RelPermalink }}">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ partial "date.html" . }}</time>
+              <h2>{{ .Title }}</h2>
+              <p>{{ .Params.description }}</p>
+              <span class="more">{{ i18n "readMore" }}</span>
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p class="lead">{{ i18n "noPosts" }}</p>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

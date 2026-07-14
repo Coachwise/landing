@@ -1,15 +1,19 @@
+{{/* Like the nav, the footer's copy lives on the home page and every other page
+     borrows it — reading .Params here would leave a blank badge on a blog post. */}}
+{{ $f := .Site.Home.Params.footer }}
 <footer class="foot">
   <div class="wrap foot-in">
     <div class="foot-brand">
       {{ partial "mark.html" . }}
       <div>
         <span class="brand-name">{{ .Site.Title }}</span>
-        <p>{{ .Params.footer.tagline }}</p>
+        <p>{{ $f.tagline }}</p>
       </div>
     </div>
 
     <div class="foot-meta">
-      <span class="beta">{{ .Params.footer.beta }}</span>
+      <a href="{{ "blog/" | relLangURL }}">{{ i18n "blog" }}</a>
+      <span class="beta">{{ $f.beta }}</span>
       <span class="copy">© {{ now.Year }} {{ .Site.Title }}</span>
       {{ range .Translations }}
         <a href="{{ .Permalink }}" lang="{{ .Site.Language.Lang }}">{{ .Site.Language.LanguageName }}</a>
