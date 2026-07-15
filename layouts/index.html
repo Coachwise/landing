@@ -117,4 +117,31 @@
   </div>
 </section>
 
+{{/* ─────────── SHOWCASE: real screenshots from the app ─────────── */}}
+{{ with .Params.showcase }}
+<section id="showcase" class="showcase">
+  <div class="wrap">
+    <div class="showcase-head">
+      <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
+      <h2 class="display display-sm">{{ .title }}</h2>
+      <p class="lead">{{ .lead }}</p>
+    </div>
+
+    <div class="shots">
+      {{ range .items }}
+        <figure class="shot rise">
+          <div class="phone">
+            <img src="{{ (printf "img/screens/%s/%s.png" $.Site.Language.Lang .img) | relURL }}" alt="{{ .title }}" width="402" height="874" loading="lazy" decoding="async">
+          </div>
+          <figcaption>
+            <h3>{{ .title }}</h3>
+            <p>{{ .body }}</p>
+          </figcaption>
+        </figure>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
 {{ end }}

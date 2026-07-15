@@ -520,3 +520,35 @@ a { color: inherit; }
 }
 .prose strong { font-weight: 600; }
 .prose a { color: var(--navy); text-underline-offset: 3px; }
+
+/* ─────────── SHOWCASE: real app screenshots in phone frames ─────────── */
+.showcase { background: var(--ice); padding-block: clamp(3.5rem, 2.5rem + 5vw, 6rem); }
+.showcase-head { max-inline-size: 44rem; margin-block-end: clamp(2rem, 1.5rem + 2vw, 3rem); }
+.showcase-head .lead { color: color-mix(in srgb, var(--navy) 62%, transparent); margin-block-start: 0.6rem; }
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+}
+.shot { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.1rem; }
+
+/* A simple device frame: navy bezel, rounded, a soft lift off the page. */
+.phone {
+  inline-size: 100%;
+  max-inline-size: 16rem;
+  padding: 0.5rem;
+  background: var(--navy);
+  border-radius: 2rem;
+  box-shadow: 0 1.5rem 3rem -1rem color-mix(in srgb, var(--deep) 35%, transparent);
+}
+.phone img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: 1.5rem;
+  background: var(--ice);
+}
+.shot figcaption { max-inline-size: 22rem; }
+.shot h3 { font-size: 1.15rem; margin-block-end: 0.35rem; }
+.shot figcaption p { color: color-mix(in srgb, var(--navy) 60%, transparent); font-size: 0.95rem; line-height: 1.6; }

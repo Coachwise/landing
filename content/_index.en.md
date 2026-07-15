@@ -43,6 +43,30 @@ session:
   timer: "24:10"
   timerLabel: "Session time"
 
+showcase:
+  eyebrow: "Inside the app"
+  title: "Exactly what you'll see on your phone."
+  lead: "Not mockups — real screenshots from the app itself."
+  items:
+    - img: "session"
+      title: "A live session"
+      body: "Today's plan with its exercises, a short animation for each move, set counts and a session timer."
+    - img: "progress"
+      title: "Watch yourself improve"
+      body: "Run an assessment as often as you like; the progress line and your records collect in one place."
+    - img: "schedule"
+      title: "Your week, planned"
+      body: "A calendar with each day's session ready to start — your coach writes it, you follow it."
+    - img: "assessments"
+      title: "Assessments from your coach"
+      body: "Tests your coach assigned, plus your own protocols to re-run and measure against."
+    - img: "coaches"
+      title: "Find your coach"
+      body: "Search verified coaches, connect, and take their package."
+    - img: "coach"
+      title: "The coach dashboard"
+      body: "Clients, packages and assigned plans — all on one screen."
+
 coach:
   eyebrow: "For coaches"
   title: "Put your coaching on your athletes' phones."
