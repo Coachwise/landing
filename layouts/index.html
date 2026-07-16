@@ -1,83 +1,154 @@
 {{ define "main" }}
 
-{{/* ─────────── ABOVE THE RIDGELINE: summit light, and the pitch ─────────── */}}
+{{/* ─────────── HERO: the pitch, with the product already in frame ─────────── */}}
 <section class="surface">
-  <div class="wrap surface-in">
-    <div class="hero-mark" aria-hidden="true">{{ partial "mark.html" . }}</div>
+  <div class="wrap hero-grid">
+    <div class="surface-in">
+      <div class="hero-mark" aria-hidden="true">{{ partial "mark.html" . }}</div>
+      <p class="eyebrow">{{ .Params.hero.eyebrow }}</p>
+      <h1 class="display">{{ .Params.hero.title }}</h1>
+      <p class="lead">{{ .Params.hero.lead }}</p>
 
-    <p class="eyebrow">{{ .Params.hero.eyebrow }}</p>
-    <h1 class="display">{{ .Params.hero.title }}</h1>
-    <p class="lead">{{ .Params.hero.lead }}</p>
+      <div id="get" class="get">
+        {{ partial "downloads.html" . }}
+        <p class="note">{{ .Params.cta.body }}</p>
+      </div>
+    </div>
 
-    <div id="get" class="get">
-      {{ partial "downloads.html" . }}
-      <p class="note">{{ .Params.cta.body }}</p>
+    {{/* The app, above the fold. A real screenshot in a device frame. */}}
+    <div class="hero-shot" aria-hidden="false">
+      <div class="phone phone-lg">
+        <img src="{{ (printf "img/screens/%s/%s.png" .Site.Language.Lang .Params.hero.shot) | relURL }}"
+             alt="{{ .Params.hero.shotAlt }}" width="402" height="874" fetchpriority="high" decoding="async">
+      </div>
     </div>
   </div>
 </section>
 
+{{/* ─────────── PILLARS: three things that make it itself ─────────── */}}
+{{ with .Params.pillars }}
+<section class="pillars">
+  <div class="wrap pillar-row">
+    {{ range . }}
+      <div class="pillar">
+        <h2>{{ .title }}</h2>
+        <p>{{ .body }}</p>
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
 {{/* ─────────── THE RIDGELINE ─────────── */}}
-<div class="ridgeline" role="separator" aria-label="{{ .Params.ridgeline }}">
+<div class="ridgeline" role="separator" aria-label="{{ .Params.ridgeline | default "Ridgeline" }}">
   <svg class="ridge" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0,82 L300,52 L560,16 L700,46 L840,24 L1120,62 L1440,38 L1440,90 L0,90 Z"/>
   </svg>
-  <span class="ridgeline-label">{{ .Params.ridgeline }}</span>
 </div>
 
-{{/* ─────────── BELOW THE RIDGE: the work the summit is made of ─────────── */}}
-<section id="depth" class="deep">
+{{/* ─────────── BELOW THE RIDGE: the app, feature by feature ─────────── */}}
+<section id="features" class="deep">
   <div class="wrap">
 
-    {{ range $i, $d := .Params.depths }}
-      <article class="depth rise" data-rail="{{ $d.rail }}">
-        <div class="rail" aria-hidden="true"></div>
-
-        <div class="depth-body">
-          <p class="eyebrow eyebrow-deep">{{ $d.eyebrow }}</p>
-          <h2>{{ $d.title }}</h2>
-          <p>{{ $d.body }}</p>
-          <ul class="tags">
-            {{ range $d.tags }}<li>{{ . }}</li>{{ end }}
-          </ul>
-        </div>
-
-        {{/* The session card only belongs to the first depth: it is what logging
-             actually looks like. Rendered in markup, not a screenshot, so it stays
-             correct in both languages and both text directions. */}}
-        {{ if eq $d.rail 1 }}
-          {{ $s := $.Params.session }}
-          <div class="card" aria-hidden="true">
-            <div class="card-top">
-              <span class="card-caption">{{ $s.caption }}</span>
-              <span class="card-timer"><b>{{ $s.timer }}</b><small>{{ $s.timerLabel }}</small></span>
-            </div>
-            <div class="card-ex">
-              <h3>{{ $s.exercise }}</h3>
-              <span>{{ $s.meta }}</span>
-            </div>
-            {{ range $s.rows }}
-              <div class="set{{ if .done }} set-done{{ end }}">
-                <span class="box">{{ if .done }}<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ end }}</span>
-                <span class="set-n">{{ .set }}</span>
-                <span class="set-d">{{ .detail }}</span>
-              </div>
-            {{ end }}
-          </div>
-        {{ end }}
-      </article>
+    {{ with .Params.features }}
+      <div class="section-head rise">
+        <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
+        <h2 class="display display-sm">{{ .title }}</h2>
+        <p class="deep-lead">{{ .lead }}</p>
+      </div>
     {{ end }}
 
-    {{/* ─────────── COACH ─────────── */}}
-    <article id="coach" class="coach rise">
-      <p class="eyebrow eyebrow-deep">{{ .Params.coach.eyebrow }}</p>
-      <h2 class="display display-sm">{{ .Params.coach.title }}</h2>
-      <p class="coach-lead">{{ .Params.coach.body }}</p>
-      <ul class="points">
-        {{ range .Params.coach.points }}<li>{{ . }}</li>{{ end }}
-      </ul>
-    </article>
+    {{ range $i, $r := .Params.features.rows }}
+      <article class="feature rise{{ if eq (mod $i 2) 1 }} feature-alt{{ end }}">
+        <div class="feature-copy">
+          <span class="feature-rail" aria-hidden="true"><i style="--fill: {{ $r.fill }}%"></i></span>
+          <div>
+            <p class="eyebrow eyebrow-deep">{{ $r.eyebrow }}</p>
+            <h3>{{ $r.title }}</h3>
+            <p class="feature-body">{{ $r.body }}</p>
+            <ul class="tags">{{ range $r.tags }}<li>{{ . }}</li>{{ end }}</ul>
+          </div>
+        </div>
+        <div class="feature-shot">
+          <div class="phone">
+            <img src="{{ (printf "img/screens/%s/%s.png" $.Site.Language.Lang $r.img) | relURL }}"
+                 alt="{{ $r.title }}" width="402" height="874" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</section>
 
-    {{/* ─────────── FAQ (also the source of the FAQPage schema) ─────────── */}}
+{{/* ─────────── HOW IT WORKS ─────────── */}}
+{{ with .Params.steps }}
+<section id="how" class="how">
+  <div class="wrap">
+    <div class="section-head rise">
+      <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
+      <h2 class="display display-sm">{{ .title }}</h2>
+      <p class="deep-lead">{{ .lead }}</p>
+    </div>
+    <ol class="steps">
+      {{ range .items }}
+        <li class="step rise">
+          <span class="step-n" aria-hidden="true">{{ .n }}</span>
+          <h3>{{ .title }}</h3>
+          <p>{{ .body }}</p>
+        </li>
+      {{ end }}
+    </ol>
+  </div>
+</section>
+{{ end }}
+
+{{/* ─────────── FOR COACHES ─────────── */}}
+{{ with .Params.coach }}
+<section id="coach" class="deep coach-section">
+  <div class="wrap feature feature-alt coach-feature rise">
+    <div class="feature-copy">
+      <div>
+        <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
+        <h2 class="display display-sm">{{ .title }}</h2>
+        <p class="feature-body">{{ .body }}</p>
+        <ul class="points">{{ range .points }}<li>{{ . }}</li>{{ end }}</ul>
+      </div>
+    </div>
+    <div class="feature-shot">
+      <div class="phone">
+        <img src="{{ (printf "img/screens/%s/%s.png" $.Site.Language.Lang .img) | relURL }}"
+             alt="{{ .imgAlt }}" width="402" height="874" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{/* ─────────── EVERYTHING IN ONE APP ─────────── */}}
+{{ with .Params.grid }}
+<section class="grid-section">
+  <div class="wrap">
+    <div class="section-head rise">
+      <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
+      <h2 class="display display-sm">{{ .title }}</h2>
+    </div>
+    <ul class="grid">
+      {{ range .items }}
+        <li class="tile rise">
+          <span class="tile-ic" aria-hidden="true">{{ partial "icon.html" .icon }}</span>
+          <h3>{{ .title }}</h3>
+          <p>{{ .body }}</p>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+</section>
+{{ end }}
+
+{{/* ─────────── FAQ, BLOG, CTA — on the dark mountain again ─────────── */}}
+<section class="deep deep-close">
+  <div class="wrap">
+
     {{ with .Params.faq }}
       <article id="faq" class="faq rise">
         <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
@@ -93,7 +164,6 @@
       </article>
     {{ end }}
 
-    {{/* ─────────── LATEST POST ─────────── */}}
     {{ $posts := where .Site.RegularPages "Section" "blog" }}
     {{ with $posts.ByDate.Reverse }}
       {{ $latest := index . 0 }}
@@ -108,40 +178,13 @@
       </article>
     {{ end }}
 
-    {{/* ─────────── FINAL CTA ─────────── */}}
     <article class="end rise">
+      {{ with .Params.cta.eyebrow }}<p class="eyebrow eyebrow-deep">{{ . }}</p>{{ end }}
       <h2 class="display display-sm">{{ .Params.cta.title }}</h2>
       {{ partial "downloads.html" . }}
     </article>
 
   </div>
 </section>
-
-{{/* ─────────── SHOWCASE: real screenshots from the app ─────────── */}}
-{{ with .Params.showcase }}
-<section id="showcase" class="showcase">
-  <div class="wrap">
-    <div class="showcase-head">
-      <p class="eyebrow eyebrow-deep">{{ .eyebrow }}</p>
-      <h2 class="display display-sm">{{ .title }}</h2>
-      <p class="lead">{{ .lead }}</p>
-    </div>
-
-    <div class="shots">
-      {{ range .items }}
-        <figure class="shot rise">
-          <div class="phone">
-            <img src="{{ (printf "img/screens/%s/%s.png" $.Site.Language.Lang .img) | relURL }}" alt="{{ .title }}" width="402" height="874" loading="lazy" decoding="async">
-          </div>
-          <figcaption>
-            <h3>{{ .title }}</h3>
-            <p>{{ .body }}</p>
-          </figcaption>
-        </figure>
-      {{ end }}
-    </div>
-  </div>
-</section>
-{{ end }}
 
 {{ end }}

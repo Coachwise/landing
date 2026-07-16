@@ -1,0 +1,24 @@
+{{/* Line icons for the feature grid. One stroke weight, currentColor, 24-box —
+     they read as one family. Passed a name string via `partial "icon.html" .icon`. */}}
+{{ $c := . }}
+<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {{ if eq $c "dumbbell" }}
+    <path d="M6.5 6.5v11M3.5 9v6M17.5 6.5v11M20.5 9v6M6.5 12h11"/>
+  {{ else if eq $c "mountain" }}
+    <path d="M3 20l6-11 4 7 2-3 6 7z"/><circle cx="17" cy="6" r="1.5"/>
+  {{ else if eq $c "calendar" }}
+    <rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>
+  {{ else if eq $c "clipboard" }}
+    <rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 4.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4.5V6H9zM8.5 11h7M8.5 15h5"/>
+  {{ else if eq $c "chart" }}
+    <path d="M4 4v16h16"/><path d="M7 15l3.5-4 3 2.5L20 7"/>
+  {{ else if eq $c "compass" }}
+    <circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-1.8 5-5 1.8 1.8-5z"/>
+  {{ else if eq $c "box" }}
+    <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9zM4 7.5l8 4.5 8-4.5M12 12v9"/>
+  {{ else if eq $c "wallet" }}
+    <rect x="3.5" y="6" width="17" height="13" rx="2.5"/><path d="M3.5 10h17M16.5 13.5h.5"/>
+  {{ else if eq $c "chat" }}
+    <path d="M4.5 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4V6z"/>
+  {{ end }}
+</svg>

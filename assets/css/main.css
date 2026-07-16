@@ -552,3 +552,111 @@ a { color: inherit; }
 .shot figcaption { max-inline-size: 22rem; }
 .shot h3 { font-size: 1.15rem; margin-block-end: 0.35rem; }
 .shot figcaption p { color: color-mix(in srgb, var(--navy) 60%, transparent); font-size: 0.95rem; line-height: 1.6; }
+
+/* ═══════════════ REBUILD: product-forward landing ═══════════════ */
+
+/* ── Hero: pitch on one side, the app on the other ───────────────────────── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+.hero-shot { display: flex; justify-content: center; }
+.phone-lg { max-inline-size: 19rem; }
+
+/* One device frame, reused everywhere. Navy bezel, soft lift. */
+.phone {
+  inline-size: 100%;
+  max-inline-size: 16rem;
+  padding: 0.5rem;
+  background: var(--navy);
+  border-radius: 2rem;
+  box-shadow: 0 1.75rem 3.5rem -1rem rgb(0 0 0 / 0.45);
+}
+.phone img { display: block; inline-size: 100%; block-size: auto; border-radius: 1.5rem; background: var(--ice); }
+
+@media (max-width: 52rem) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-shot { margin-block-start: 2.5rem; }
+  .phone-lg { max-inline-size: 16rem; }
+}
+
+/* ── Pillars: a quiet trust strip, still in the summit light ─────────────── */
+.pillars { padding-block: clamp(2rem, 4vw, 3rem) clamp(2.5rem, 5vw, 3.5rem); }
+.pillar-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 3vw, 2.5rem); }
+.pillar { padding-inline-start: 1rem; border-inline-start: 2px solid var(--summit); }
+.pillar h2 { font-size: 1.05rem; margin-block-end: 0.35rem; }
+.pillar p { color: color-mix(in srgb, var(--navy) 62%, transparent); font-size: 0.95rem; line-height: 1.6; }
+@media (max-width: 44rem) { .pillar-row { grid-template-columns: 1fr; gap: 1.25rem; } }
+
+/* ── Below the ridge is one continuous mountain ─────────────────────────── */
+.how, .grid-section, .coach-section { background: var(--deep); color: var(--pale); }
+.how, .grid-section { padding-block: clamp(3rem, 6vw, 5rem); }
+.deep-close { padding-block: clamp(2.5rem, 5vw, 4rem) clamp(3.5rem, 7vw, 5.5rem); }
+
+.section-head { max-inline-size: 44rem; margin-block-end: clamp(2rem, 4vw, 3.25rem); }
+.deep-lead { color: color-mix(in srgb, var(--pale) 82%, transparent); margin-block-start: 0.6rem; font-size: 1.05rem; }
+
+/* ── Feature rows: real screenshot next to what it does, alternating ──────── */
+.feature {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 20rem);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  border-block-end: 1px solid color-mix(in srgb, var(--pale) 12%, transparent);
+}
+.feature:last-child { border-block-end: 0; }
+.feature-alt .feature-copy { order: 2; }
+.feature-alt .feature-shot { order: 1; }
+.feature-shot { display: flex; justify-content: center; }
+
+.feature-copy { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; }
+.feature-copy h3 { color: var(--ice); font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem); margin-block-end: 0.75rem; }
+.feature-body { color: var(--pale); max-inline-size: 34rem; }
+
+/* The gauge: fills further the higher up the product you read. */
+.feature-rail { inline-size: 2px; border-radius: 2px; background: color-mix(in srgb, var(--pale) 12%, transparent); align-self: stretch; position: relative; }
+.feature-rail i { position: absolute; inset-block-start: 0; inset-inline: 0; block-size: var(--fill, 33%); border-radius: 2px; background: var(--summit); opacity: 0.5; }
+
+@media (max-width: 52rem) {
+  .feature { grid-template-columns: 1fr; gap: 1.75rem; }
+  .feature-alt .feature-copy, .feature-alt .feature-shot { order: 0; }
+  .feature-copy { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
+  .feature-rail { inline-size: 100%; block-size: 2px; align-self: start; grid-column: 1 / -1; }
+  .feature-rail i { inset-block: 0; inset-inline: 0 auto; inline-size: var(--fill, 33%); block-size: 100%; }
+  .feature-shot { order: -1 !important; }
+}
+
+/* ── How it works: three steps ───────────────────────────────────────────── */
+.steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 3vw, 2rem); counter-reset: step; }
+.step { padding: 1.5rem; border-radius: 1rem; background: color-mix(in srgb, var(--navy) 45%, transparent); border: 1px solid color-mix(in srgb, var(--pale) 12%, transparent); }
+.step-n {
+  display: inline-grid; place-items: center;
+  inline-size: 2.5rem; block-size: 2.5rem; margin-block-end: 1rem;
+  border-radius: 999px; background: var(--summit); color: var(--deep);
+  font-weight: 700; font-size: 1.1rem;
+}
+.step h3 { color: var(--ice); font-size: 1.15rem; margin-block-end: 0.4rem; }
+.step p { color: color-mix(in srgb, var(--pale) 85%, transparent); font-size: 0.95rem; line-height: 1.65; }
+@media (max-width: 44rem) { .steps { grid-template-columns: 1fr; } }
+
+/* ── Coach section: reuse the feature row, remove its border ─────────────── */
+.coach-feature { padding-block: clamp(3rem, 6vw, 4.5rem); border-block-end: 0; }
+.coach-feature .points { margin-block-start: 1.5rem; }
+
+/* ── Everything in one app: the breadth grid ─────────────────────────────── */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.25rem); }
+.tile {
+  padding: 1.4rem;
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--navy) 40%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pale) 10%, transparent);
+}
+.tile-ic { display: inline-grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; margin-block-end: 0.9rem; border-radius: 0.65rem; background: color-mix(in srgb, var(--summit) 16%, transparent); color: var(--summit); }
+.tile-ic .ic { inline-size: 1.35rem; block-size: 1.35rem; }
+.tile h3 { color: var(--ice); font-size: 1rem; margin-block-end: 0.3rem; }
+.tile p { color: color-mix(in srgb, var(--pale) 80%, transparent); font-size: 0.9rem; line-height: 1.6; }
+@media (max-width: 52rem) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 34rem) { .grid { grid-template-columns: 1fr; } }
